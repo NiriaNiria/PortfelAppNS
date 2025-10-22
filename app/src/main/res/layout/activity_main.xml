@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical" android:padding="16dp"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+
+        >
+
+        <TextView
+            android:text="Mój Portfel"
+            android:textSize="22sp" android:textStyle="bold"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+
+        <RadioGroup
+            android:id="@+id/rgTyp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <RadioButton
+                android:id="@+id/rbDochod"
+                android:text="Dochód" android:checked="true"
+                android:textStyle="bold"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbWydatek"
+                android:text="Wydatek"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etKwota"
+            android:hint="Kwota (PLN)"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/etOpis"
+            android:hint="Opis (np. pensja, zakupy...)"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:id="@+id/boxKategoria"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            <TextView
+                android:text="Kategoria:"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"/>
+            <Spinner
+                android:id="@+id/spKategoria"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnDodaj"
+            android:text="Dodaj wpis"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            />
+
+        <TextView
+            android:id="@+id/tvSuma"
+            android:text="Suma dochodów: 0.00 PLN • Suma wydatków: 0.00 PLN"
+            android:textStyle="bold"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:text="Podstawowe potrzeby (wydatki):"
+            android:textStyle="bold"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/tvRaport4"
+            android:text="• Jedzenie: 0.00 PLN\n• Mieszkanie/Media: 0.00 PLN\n• Transport: 0.00 PLN\n• Zdrowie: 0.00 PLN"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#DDDDDD" android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:text=" Historia wydatków (najnowsze na górze):"
+            android:textStyle="bold"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"/>
+        <TextView
+            android:id="@+id/tvHistoria"
+            android:text=""
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="#DDDDDD" android:layout_marginTop="12dp"/>
+
+        <TextView
+            android:text="Wszystkie wpisy:"
+            android:textStyle="bold"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"/>
+        <TextView
+            android:id="@+id/tvLista"
+            android:text=""
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"/>
+
+    </LinearLayout>
+</ScrollView>
