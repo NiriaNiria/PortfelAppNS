@@ -1,0 +1,6 @@
+cmbFiltr.Items.Add("Wszystkie");
+cmbFiltr.Items.Add("Jedzenie");
+cmbFiltr.Items.Add("Transport");
+cmbFiltr.Items.Add("Rozrywka");
+
+cmbFiltr.SelectedIndex = 0;
