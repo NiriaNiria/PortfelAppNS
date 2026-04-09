@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,11 +15,19 @@ namespace WindowsFormsApp5
         public Form1()
         {
             InitializeComponent();
+
             listaWydatkow = new BindingList<Wydatek>();
             dgvWydatki.DataSource = listaWydatkow;
 
             if (cmbKategoria.Items.Count > 0)
                 cmbKategoria.SelectedIndex = 0;
+
+            cmbFiltr.Items.Add("Wszystkie");
+            cmbFiltr.Items.Add("Jedzenie");
+            cmbFiltr.Items.Add("Transport");
+            cmbFiltr.Items.Add("Rozrywka");
+            cmbFiltr.Items.Add("Inne");
+            cmbFiltr.SelectedIndex = 0;
         }
 
         private void AktualizujSume()
@@ -29,7 +38,9 @@ namespace WindowsFormsApp5
 
         private void btnDodaj_Click(object sender, EventArgs e)
         {
-            if (decimal.TryParse(txtKwota.Text, out decimal kwota))
+            string tekstKwoty = txtKwota.Text.Replace('.', ',');
+
+            if (decimal.TryParse(tekstKwoty, out decimal kwota))
             {
                 if (string.IsNullOrWhiteSpace(txtNazwa.Text))
                 {
@@ -40,6 +51,7 @@ namespace WindowsFormsApp5
                 Wydatek nowyWydatek = new Wydatek(txtNazwa.Text, kwota, cmbKategoria.Text);
                 listaWydatkow.Add(nowyWydatek);
                 AktualizujSume();
+
                 txtNazwa.Clear();
                 txtKwota.Clear();
             }
@@ -53,9 +65,13 @@ namespace WindowsFormsApp5
         {
             if (dgvWydatki.SelectedRows.Count > 0)
             {
-                int indeks = dgvWydatki.SelectedRows[0].Index;
-                listaWydatkow.RemoveAt(indeks);
-                AktualizujSume();
+                Wydatek wybranyWydatek = dgvWydatki.SelectedRows[0].DataBoundItem as Wydatek;
+
+                if (wybranyWydatek != null)
+                {
+                    listaWydatkow.Remove(wybranyWydatek);
+                    AktualizujSume();
+                }
             }
         }
 
@@ -79,44 +95,28 @@ namespace WindowsFormsApp5
             }
         }
 
-        private void cmbKategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtNazwa_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblSuma_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtKwota_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
-        {
-            private void Form1_Load(object sender, EventArgs e)
         {
             if (File.Exists(sciezkaPliku))
             {
                 using (StreamReader sr = new StreamReader(sciezkaPliku))
                 {
                     string linia;
+
                     while ((linia = sr.ReadLine()) != null)
                     {
                         string[] dane = linia.Split(';');
 
-                        string nazwa = dane[0];
-                        decimal kwota = decimal.Parse(dane[1]);
-                        string kategoria = dane[2];
+                        if (dane.Length == 3)
+                        {
+                            string nazwa = dane[0];
 
-                        listaWydatkow.Add(new Wydatek(nazwa, kwota, kategoria));
+                            if (decimal.TryParse(dane[1], out decimal kwota))
+                            {
+                                string kategoria = dane[2];
+                                listaWydatkow.Add(new Wydatek(nazwa, kwota, kategoria));
+                            }
+                        }
                     }
                 }
 
@@ -124,19 +124,7 @@ namespace WindowsFormsApp5
             }
         }
 
-        private void cmbFiltr_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cmbFiltr.Items.Add("Wszystkie");
-            cmbFiltr.Items.Add("Jedzenie");
-            cmbFiltr.Items.Add("Transport");
-            cmbFiltr.Items.Add("Rozrywka");
-
-            cmbFiltr.SelectedIndex = 0;
-        }
-
         private void btnFiltruj_Click(object sender, EventArgs e)
-        {
-            private void btnFiltruj_Click(object sender, EventArgs e)
         {
             string wybrana = cmbFiltr.Text;
 
@@ -153,7 +141,25 @@ namespace WindowsFormsApp5
                 dgvWydatki.DataSource = filtrowane;
             }
         }
-    }
-    }
+
+        private void cmbKategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void txtNazwa_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void lblSuma_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void txtKwota_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void cmbFiltr_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
     }
 }
