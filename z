@@ -1,0 +1,22 @@
+private void Form1_Load(object sender, EventArgs e)
+{
+    if (File.Exists(sciezkaPliku))
+    {
+        using (StreamReader sr = new StreamReader(sciezkaPliku))
+        {
+            string linia;
+            while ((linia = sr.ReadLine()) != null)
+            {
+                string[] dane = linia.Split(';');
+
+                string nazwa = dane[0];
+                decimal kwota = decimal.Parse(dane[1]);
+                string kategoria = dane[2];
+
+                listaWydatkow.Add(new Wydatek(nazwa, kwota, kategoria));
+            }
+        }
+
+        AktualizujSume();
+    }
+}
